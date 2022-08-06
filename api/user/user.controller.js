@@ -9,7 +9,7 @@ const  {
   deleteUser,
 } = require('./user.service.js')
 
-const getSingleUserHandler =  async function(req, res) {
+const getSingleUserHandler =  async (req, res) => {
   const { id } = req.params
   try {
     const user = await getSingleUser(id)
@@ -17,14 +17,14 @@ const getSingleUserHandler =  async function(req, res) {
     if (!user) {
       return res.status(404).json({ message: 'User not found' })
     }
-
-    return res.json(user)
+    return res.json(user)  
+    
   } catch (error) {
-    return res.status(500).json({ error })
+    return res.status(500).json({ error: "There was an error"})
   }
 }
 
-const createUserHandler = async function(req, res) {
+const createUserHandler = async (req, res) => {
   const userData = req.body
 
   try {
@@ -35,9 +35,9 @@ const createUserHandler = async function(req, res) {
   }
 }
 
-const updateUserHandler = async function(req, res) {}
+const updateUserHandler = async (req, res) => {}
 
-const deleteUserHandler = async function(req, res) {}
+const deleteUserHandler = async (req, res) => {}
 
 module.exports = {
   getSingleUserHandler,
