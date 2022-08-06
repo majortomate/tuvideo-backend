@@ -7,7 +7,7 @@ const  {
   findUserByEmail,
   updateUser,
   deleteUser,
-} = './user.service.js'
+} = require('./user.service.js')
 
 const getSingleUserHandler =  async function(req, res) {
   const { id } = req.params

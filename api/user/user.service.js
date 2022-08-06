@@ -1,4 +1,4 @@
-const { User } = './user.model.js'
+const User = require('./user.model.js')
 
 const getSingleUser = function(id) {
   return User.findById(id)

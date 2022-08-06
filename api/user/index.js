@@ -2,7 +2,7 @@
  * User API
  */
 const express = require('express');
- const { Router } = express;
+const { Router } = express;
 
 
 const {
@@ -10,7 +10,7 @@ const {
    deleteUserHandler,
    getSingleUserHandler,
    updateUserHandler,
- } = './user.controller.js'
+ } = require('./user.controller.js')
  
  const router = Router();
  
