@@ -1,9 +1,8 @@
 /**
  * Main application routes
  */
-const { user } = './api/user/index.js'
- 
-function routes(app) {
+const user = require('./api/user/index.js')
+const routes = function(app) {
    app.use('/api/users', user)
 }
  

@@ -1,24 +1,14 @@
-const { User } = './user.model.js'
+const User = require('./user.model.js')
 
-const getSingleUser = function(id) {
-  return User.findById(id)
-}
+const getSingleUser = id => User.findById(id)
 
-const findUserByEmail = function(email) {
-  return User.findOne({ email })
-}
+const findUserByEmail = email => User.findOne({ email })
 
-const createUser = function(user) {
-  return User.create(user)
-}
+const createUser = user => User.create(user)
 
-const updateUser = function(id, user) {
-  return User.findByIdAndUpdate(id, user, { new: true })
-}
+const updateUser = (id, user) => User.findByIdAndUpdate(id, user, { new: true })
 
-const deleteUser = function(id) {
-  return User.findByIdAndRemove(id)
-}
+const deleteUser = id =>  User.findByIdAndRemove(id)
 
 module.exports = {
   getSingleUser,
