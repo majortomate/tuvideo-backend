@@ -7,13 +7,13 @@ const  {
     getSingleVideo,
     updateVideo,
     deleteVideo,
-  } = require('./Video.service.js')
+  } = require('./video.service.js')
 
   
   const getAllVideoHandler = async (req, res) => {
     try {
         const Videos = await getAllVideo()
-        return res.status(200).json(Video)
+        return res.status(200).json(Videos)
     } catch (error) {
         return res.status(500).json({ error })
     }
@@ -39,7 +39,7 @@ const  {
   
     try {
       const Video = await createVideo(VideoData)
-      Video.save();
+      Video.save().status(200).json("Successfully added to database");
     } catch (error) {
       return res.status(500).json({ error: "something went wrong "})
     }

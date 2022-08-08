@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "backend for tuvideo-frontend",
   "main": "server.js",
+  "engines": {
+    "node": "14.18.1"
+  },
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
@@ -10,6 +13,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.1",
     "mongoose": "^6.5.1",
     "morgan": "^1.10.0"

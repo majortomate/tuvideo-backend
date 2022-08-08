@@ -7,6 +7,7 @@
  
  const {
     createVideoHandler,
+    getAllVideoHandler,
     deleteVideoHandler,
     getSingleVideoHandler,
     updateVideoHandler,
@@ -15,6 +16,7 @@
   const router = Router();
   
   router.post('/', createVideoHandler)
+  router.get('/', getAllVideoHandler)
   router.get('/:id', getSingleVideoHandler)
   router.patch('/:id', updateVideoHandler)
   router.delete('/:id', deleteVideoHandler)

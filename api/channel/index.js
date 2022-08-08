@@ -8,13 +8,13 @@ const {
   createChannelHandler,
   updateChannelHandler,
   deleteChannelHandler
-} = require('./channel.controller');
+} = require('./channel.controller.js');
 
 const router = Router();
 
 router.post('/', createChannelHandler);
 router.get('/:id', getSingleChannelHandler);
-router.patch('/:id', updateChannel);
-router.delete('/:id', deleteChannel);
+router.patch('/:id', updateChannelHandler);
+router.delete('/:id', deleteChannelHandler);
 
 module.exports = router;
