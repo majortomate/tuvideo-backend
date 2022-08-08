@@ -7,7 +7,7 @@ const getSingleVideo = id => Video.findById(id);
 
 const createVideo = video => Video.create(video);
 
-const updateVideo = (id, video) => Video.findByIdAndUpdate(id, video, { new: true });
+const updateVideo = (id, video) => Video.findOneAndUpdate(id, video, { new: true });
 
 const deleteVideo = id =>  Video.findByIdAndRemove(id);
 
