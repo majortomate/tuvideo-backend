@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "backend for tuvideo-frontend",
   "main": "server.js",
+  "engines": {
+    "node": "14.18.1"
+  },
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
