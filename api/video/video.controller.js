@@ -13,7 +13,7 @@ const  {
   const getAllVideoHandler = async (req, res) => {
     try {
         const Videos = await getAllVideo()
-        return res.status(200).json(Video)
+        return res.status(200).json(Videos)
     } catch (error) {
         return res.status(500).json({ error })
     }
