@@ -39,9 +39,9 @@ const  {
   
     try {
       const Video = await createVideo(VideoData)
-      return res.status(201).json(Video)
+      Video.save();
     } catch (error) {
-      return res.status(500).json({ error })
+      return res.status(500).json({ error: "something went wrong "})
     }
   }
   
