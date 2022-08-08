@@ -5,7 +5,7 @@ const {
   createChannel,
   updateChannel,
   deleteChannel
-} = require('./channel.service');
+} = require('./channel.service.js');
 
 const getSingleChannelHandler = async (req, res) => {
   const { id } = req.params;

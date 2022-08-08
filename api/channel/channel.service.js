@@ -1,4 +1,4 @@
-const Channel = require('./channel.model');
+const Channel = require('./channel.model.js');
 
 const getSingleChannel = id => Channel.findById(id);
 
