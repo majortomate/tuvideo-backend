@@ -45,7 +45,18 @@ const  {
     }
   }
   
-  const updateVideoHandler = async (req, res) => {}
+  const updateVideoHandler = async (req, res) => {
+    const { id } = req.params
+  const videoData = req.body
+
+  try {
+    const video = await updateVideo(id, videoData)
+
+    return res.status(200).json(video)
+  } catch (error) {
+    return res.status(500).json({ error })
+  }
+  }
   
   const deleteVideoHandler = async (req, res) => {}
   

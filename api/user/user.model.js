@@ -12,9 +12,11 @@ const UserSchema = new mongoose.Schema({
   isLogged:{
     type: Boolean,
   },
-  subscribedChannels:{
-    type: Array
-  }
+  subscribedChannels:[
+    {
+      type:String
+    }
+  ]
 
 }, { timestamps: true });
 
