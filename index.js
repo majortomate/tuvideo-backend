@@ -7,7 +7,7 @@ const connectDatabase = require('./config/database.js')
 
 const app = express();
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT
 const NODE_ENV = process.env.NODE_ENV || 'production'
 
 
