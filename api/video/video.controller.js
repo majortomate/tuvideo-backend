@@ -7,7 +7,7 @@ const  {
     getSingleVideo,
     updateVideo,
     deleteVideo,
-  } = require('./Video.service.js')
+  } = require('./video.service.js')
 
   
   const getAllVideoHandler = async (req, res) => {
