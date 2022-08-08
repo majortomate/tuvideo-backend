@@ -39,7 +39,7 @@ const  {
   
     try {
       const Video = await createVideo(VideoData)
-      Video.save();
+      Video.save().status(200).json("Successfully added to database");
     } catch (error) {
       return res.status(500).json({ error: "something went wrong "})
     }
