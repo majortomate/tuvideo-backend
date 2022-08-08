@@ -4,8 +4,18 @@ const {
   getSingleChannel,
   createChannel,
   updateChannel,
-  deleteChannel
+  deleteChannel,
+  getAllChannel
 } = require('./channel.service.js');
+
+const getAllChannelHandler = async (req, res) => {
+  try {
+    const Channels = await getAllChannel();
+    return res.status(200).json(Channels);
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+}
 
 const getSingleChannelHandler = async (req, res) => {
   const { id } = req.params;
@@ -38,6 +48,7 @@ const updateChannelHandler = async (req, res) => { }
 const deleteChannelHandler = async (req, res) => { }
 
 module.exports = {
+  getAllChannelHandler,
   getSingleChannelHandler,
   createChannelHandler,
   updateChannelHandler,
