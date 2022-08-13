@@ -10,10 +10,15 @@ const updateAdmin = (id, admin) => Admin.findByIdAndUpdate(id, admin, { new: tru
 
 const deleteAdmin = id =>  Admin.findByIdAndRemove(id)
 
+const validateEmailAdmin = (email) => Admin.findOne({email: email})
+const validatePasswordAdmin = (password) => Admin.findOne({password: password})
+
 module.exports = {
   getAdmin,
   findAdminByEmail,
   createAdmin,
   updateAdmin,
+  validateEmailAdmin,
+  validatePasswordAdmin,
   deleteAdmin
 }

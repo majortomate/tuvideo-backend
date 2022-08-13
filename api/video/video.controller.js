@@ -11,8 +11,9 @@ const  {
 
   
   const getAllVideoHandler = async (req, res) => {
+
     try {
-        const Videos = await getAllVideo()
+        return await getAllVideo()
         return res.status(200).json(Videos)
     } catch (error) {
         return res.status(500).json({ error })
@@ -47,7 +48,8 @@ const  {
   
   const updateVideoHandler = async (req, res) => {
     const { id } = req.params
-  const videoData = req.body
+    const videoData = req.body
+
 
   try {
     const video = await updateVideo(id, videoData)
