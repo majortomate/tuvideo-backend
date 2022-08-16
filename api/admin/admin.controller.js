@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs')
-const Admin = require('./Admin.model.js')
+const Admin = require('./admin.model.js')
 
 const {
   getAdmin,
