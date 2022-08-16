@@ -1,4 +1,4 @@
-const Admin = require('./Admin.model.js')
+const Admin = require('./admin.model.js')
 
 const getAdmin = id => Admin.findById(id)
 
