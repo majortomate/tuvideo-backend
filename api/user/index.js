@@ -6,17 +6,19 @@ const { Router } = express;
 
 
 const {
-   createUserHandler,
-   deleteUserHandler,
-   getSingleUserHandler,
+  registerUserHandler,
+   resetUserPasswordHandler,
+   loginUserHandler,
    updateUserHandler,
+   verifyUserHandler,
  } = require('./user.controller.js')
- 
+
  const router = Router();
- 
- router.post('/', createUserHandler)
- router.get('/:id', getSingleUserHandler)
+
+ router.post('/register', registerUserHandler)
+ router.patch('/forgot', resetUserPasswordHandler)
+ router.post('/login', loginUserHandler)
  router.patch('/:id', updateUserHandler)
- router.delete('/:id', deleteUserHandler)
- 
+ router.get('/verify-account/:token',verifyUserHandler)
+
 module.exports = router;
