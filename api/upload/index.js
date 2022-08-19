@@ -9,5 +9,4 @@ const upload = multer({ dest: './temp' })
 
 router.post('/file', upload.single('file'), uploadSingleHandler)
 
-
 module.exports = router;
