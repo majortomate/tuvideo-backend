@@ -37,13 +37,14 @@ const  {
   
   const createVideoHandler = async (req, res) => {
     const VideoData = req.body
-  
-    try {
-      const Video = await createVideo(VideoData)
-      Video.save().status(200).json("Successfully added to database");
-    } catch (error) {
-      return res.status(500).json({ error: "something went wrong "})
-    }
+
+      const response = await createVideo(VideoData)
+
+      if(response){
+        res.status(200).json("success")
+      } else{
+        res.status(500).json("error")
+      }
   }
   
   const updateVideoHandler = async (req, res) => {
