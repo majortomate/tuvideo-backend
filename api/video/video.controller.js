@@ -62,6 +62,21 @@ const  {
   }
   
   const deleteVideoHandler = async (req, res) => {}
+
+  const searchVideosHandler = async (req, res) =>{
+    res.send("hey")
+    const { q } = await req.query
+
+    const keys = ["title"]
+
+    const search = (data) => {
+      return data.filter( (item) =>
+        keys.some((key) => item[key].toLowerCase().includes(q))
+      )
+    }
+     res.json(search(Videos))
+  
+  }
   
   module.exports = {
     getAllVideoHandler,
@@ -69,6 +84,7 @@ const  {
     createVideoHandler,
     updateVideoHandler,
     deleteVideoHandler,
+    searchVideosHandler,
   }
   
 
