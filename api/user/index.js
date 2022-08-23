@@ -6,19 +6,23 @@ const { Router } = express;
 
 
 const {
+  getSingleUserHandler,
   registerUserHandler,
-   resetUserPasswordHandler,
-   loginUserHandler,
-   updateUserHandler,
-   verifyUserHandler,
- } = require('./user.controller.js')
+  resetUserPasswordHandler,
+  loginUserHandler,
+  updateUserHandler,
+  verifyUserHandler,
+  findUserByEmailHandler,
+} = require('./user.controller.js')
 
- const router = Router();
+const router = Router();
 
- router.post('/register', registerUserHandler)
- router.patch('/forgot', resetUserPasswordHandler)
- router.post('/login', loginUserHandler)
- router.patch('/:id', updateUserHandler)
- router.get('/verify-account/:token',verifyUserHandler)
+router.get('/', findUserByEmailHandler);
+router.get('/:id', getSingleUserHandler)
+router.post('/register', registerUserHandler)
+router.patch('/forgot', resetUserPasswordHandler)
+router.post('/login/:id', loginUserHandler)
+router.patch('/:id', updateUserHandler)
+router.get('/verify-account/:token', verifyUserHandler)
 
 module.exports = router;
