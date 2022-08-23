@@ -17,7 +17,7 @@ const {
 
  router.post('/register', registerUserHandler)
  router.patch('/forgot', resetUserPasswordHandler)
- router.post('/login', loginUserHandler)
+ router.post('/login/:id', loginUserHandler)
  router.patch('/:id', updateUserHandler)
  router.get('/verify-account/:token',verifyUserHandler)
 
