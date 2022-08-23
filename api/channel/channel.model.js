@@ -18,9 +18,14 @@ const ChannelSchema = new mongoose.Schema({
   subscribers: {
     type: Number,
   },
-  date: {
-    type: Date,
-  }
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  video: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Video'
+  }]
 }, { timestamps: true });
 
 const Channel = mongoose.model("Channel", ChannelSchema);
