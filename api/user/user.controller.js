@@ -34,7 +34,7 @@ const getSingleUserHandler = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const user = getSingleUser(id);
+    const user = await getSingleUser(id);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
