@@ -2,31 +2,64 @@ const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema({
   username: {
-    type:"string",
+    type: "string",
     required: true,
   },
-  email:{
+  email: {
     type: String,
     required: true,
     unique: true,
   },
-  password:{
+  password: {
     type: String,
     required: true,
   },
-  isActive:{
+  role:{
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user',
+  },
+  isActive: {
     type: Boolean,
     default: false,
   },
+  logo: {
+    type: String,
+  },
+  banner: {
+    type: String,
+  },
+  description: {
+    type: String,
+  },
+  subscribers: {
+    type: Number,
+  },
+  video: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Video'
+  }],
   passwordResetToken: String,
   passwordResetExpires: Date,
-  subscribedChannels:[
+  subscribedChannels: [
     {
-      type:String
+      type: String
     }
   ]
 
 }, { timestamps: true });
+
+UserSchema.virtual('profile').get(function profile() {
+  const {
+    username, email, role,
+  } = this;
+
+  return {
+    username,
+    email,
+    role,
+  };
+});
 
 const User = mongoose.model("User", UserSchema);
 

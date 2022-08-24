@@ -2,29 +2,20 @@ const jwt = require('jsonwebtoken');
 
 const { findUserByEmail } = require('../api/user/user.service.js')
 
-/**
- * Returns a jwt token signed by the app secret
- * @param {String} payload
- * @returns {String} token
- */
-function signToken(payload) {
-  const token = jwt.sign(
-    payload, // payload
-    'EL_S#CR3T_DE_AM0R', // secret
-    { expiresIn: '1h' }, // options -> expiresIn
-  );
 
+const signToken = (payload) => {
+  const token = jwt.sign(
+    payload, 
+    'C0SA5_D3_S3N10R', 
+    { expiresIn: '1h' }, 
+  );
   return token;
 }
 
-/**
- * Validate JWT
- * @param {String} token
- * @returns {Object} payload
- */
-async function verifyToken(token) {
+
+const verifyToken = async (token) =>{
   try {
-    const payload = await jwt.verify(token, 'EL_S#CR3T_DE_AM0R');
+    const payload = await jwt.verify(token, 'C0SA5_D3_S3N10R');
     return payload;
   } catch (error) {
     return null;
