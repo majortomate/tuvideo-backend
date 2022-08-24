@@ -47,23 +47,35 @@ const getSingleUserHandler = async (req, res) => {
 }
 
 const loginUserHandler = async (req, res) => {
-  const { id } = req.params
+  const { email, password } = req.body
+
+  const user = await findUserByEmail(email)
+
+  if (!user) {
+    return res.status(404).json({ message: 'Wrong credentials' })
+  }
+
+  const userPassword = user.password;
+
   try {
-    const user = await getSingleUser(id)
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' })
+    const matchPassword = await bcrypt.compare(password, userPassword);
+    if (!matchPassword) {
+      return res.status(404).json({ message: 'Wrong password' })
     }
-    return res.json(user)
-
+    return res.status(200).json({ message: "Login successful" })
   } catch (error) {
-    return res.status(500).json({ error: "There was an error" })
+    return res.status(500).json({ error: "La cagamos" })
   }
 }
 
 const registerUserHandler = async (req, res) => {
   let userData = req.body
-  let password = req.body.password
+  let { email, password } = req.body;
+  const userFound = await findUserByEmail(email);
+
+  if (userFound) {
+    return res.status(404).json({ message: "User already registered" })
+  }
 
   const emailHash = crypto.createHash('sha256')
     .update(userData.email)
