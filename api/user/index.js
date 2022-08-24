@@ -21,7 +21,7 @@ router.get('/', findUserByEmailHandler);
 router.get('/:id', getSingleUserHandler)
 router.post('/register', registerUserHandler)
 router.patch('/forgot', resetUserPasswordHandler)
-router.post('/login/:id', loginUserHandler)
+router.post('/login', loginUserHandler)
 router.patch('/:id', updateUserHandler)
 router.get('/verify-account/:token', verifyUserHandler)
 
