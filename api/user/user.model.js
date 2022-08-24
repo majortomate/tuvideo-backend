@@ -14,6 +14,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  role:{
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user',
+  },
   isActive: {
     type: Boolean,
     default: false,
@@ -43,6 +48,18 @@ const UserSchema = new mongoose.Schema({
   ]
 
 }, { timestamps: true });
+
+UserSchema.virtual('profile').get(function profile() {
+  const {
+    username, email, role,
+  } = this;
+
+  return {
+    username,
+    email,
+    role,
+  };
+});
 
 const User = mongoose.model("User", UserSchema);
 

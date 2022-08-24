@@ -14,6 +14,7 @@ const deleteUser = id => User.findByIdAndRemove(id)
 
 const findUserByUsername = username => User.findOne({ username })
 
+
 module.exports = {
   getSingleUser,
   findUserByEmail,
@@ -21,5 +22,5 @@ module.exports = {
   findOneUser,
   registerUser,
   updateUser,
-  deleteUser
+  deleteUser,
 }

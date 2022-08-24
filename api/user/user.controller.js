@@ -62,9 +62,11 @@ const loginUserHandler = async (req, res) => {
     if (!matchPassword) {
       return res.status(404).json({ message: 'Wrong password' })
     }
-    return res.status(200).json({ message: "Login successful" })
+    const token = signToken({ email: user.email });
+
+    return res.status(200).json({ token, profile: user.profile });
   } catch (error) {
-    return res.status(500).json({ error: "La cagamos" })
+    return res.status(500).json({ error: "Something went wrong" })
   }
 }
 
@@ -100,7 +102,7 @@ const registerUserHandler = async (req, res) => {
       template_id: 'd-48fe57f4ab214ddc922e6801c679a18a', // template id
       dynamic_template_data: {
         username: user.username,
-        url: `${process.env.FRONTEND_URL}/verify-account/${hash}`,
+        url: `http://localhost:3001/api/users/verify-account/${emailHash}`,
       },
     };
 
@@ -117,11 +119,11 @@ const resetUserPasswordHandler = async (req, res) => {
 }
 
 const verifyUserHandler = async (req, res) => {
-  console.log('is working /////////////////////////////')
   const { token } = req.params;
 
+
   try {
-    const user = await findOneUser({ passwordResetToken: token });////////
+    const user = await findOneUser({ passwordResetToken: token });
 
     if (!user) {
       return res.status(404).json({ message: 'Invalid token' });
@@ -134,10 +136,10 @@ const verifyUserHandler = async (req, res) => {
     user.passwordResetToken = null;
     user.passwordResetExpires = null;
     user.isActive = true;
-
+    console.log(user)
     await user.save();
 
-    const jwtoken = signToken({ email: user.email });///////////
+    const jwtoken = signToken({ email: user.email });
 
     return res.status(200).json({
       token: jwtoken,
