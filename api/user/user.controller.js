@@ -1,6 +1,7 @@
 /* Controller for user */
 const bcrypt = require('bcryptjs')
 const crypto = require('crypto')
+const fs = require('fs-extra');
 const { sendMailSendGrid } = require('../../utils/mail.js')
 const { signToken } = require('../../auth/auth.service.js')
 const { UploadImage } = require('../../utils/cloudinary')
@@ -157,11 +158,14 @@ const updateUserHandler = async (req, res) => {
   if (req.files?.logo) {
     const result = await UploadImage(req.files.logo.tempFilePath)
     currentUser.logo = result.secure_url
+    await fs.unlink(req.files.logo.tempFilePath)
   }
   if (req.files?.banner) {
     const result = await UploadImage(req.files.banner.tempFilePath)
     currentUser.banner = result.secure_url
+    await fs.unlink(req.files.banner.tempFilePath)
   }
+
   try {
     const user = await updateUser(id, currentUser);
 
