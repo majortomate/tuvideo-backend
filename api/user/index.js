@@ -22,7 +22,7 @@ router.get('/:id', getSingleUserHandler)
 router.post('/register', registerUserHandler)
 router.patch('/forgot', resetUserPasswordHandler)
 router.post('/login', loginUserHandler)
-router.patch('/:id', updateUserHandler)
+router.post('/:id', updateUserHandler)
 router.get('/verify-account/:token', verifyUserHandler)
 
 module.exports = router;
