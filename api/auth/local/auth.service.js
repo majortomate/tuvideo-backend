@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const { findUserByEmail } = require('../api/user/user.service.js')
+const { findUserByEmail } = require('../../user/user.service')
 
 
 const signToken = (payload) => {
