@@ -7,11 +7,7 @@ const { Router } = express;
 
 const {
   getSingleUserHandler,
-  registerUserHandler,
-  resetUserPasswordHandler,
-  loginUserHandler,
   updateUserHandler,
-  verifyUserHandler,
   findUserByEmailHandler,
 } = require('./user.controller.js')
 
@@ -19,10 +15,6 @@ const router = Router();
 
 router.get('/', findUserByEmailHandler);
 router.get('/:id', getSingleUserHandler)
-router.post('/register', registerUserHandler)
-router.patch('/forgot', resetUserPasswordHandler)
-router.post('/login', loginUserHandler)
-router.post('/:id', updateUserHandler)
-router.get('/verify-account/:token', verifyUserHandler)
+router.patch('/:id', updateUserHandler)
 
 module.exports = router;
