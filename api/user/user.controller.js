@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const crypto = require('crypto')
 const { sendMailSendGrid } = require('../../utils/mail.js')
 const { signToken } = require('../../auth/auth.service.js')
-
+const { UploadImage } = require('../../utils/cloudinary')
 const {
   registerUser,
   getSingleUser,
@@ -154,7 +154,14 @@ const verifyUserHandler = async (req, res) => {
 const updateUserHandler = async (req, res) => {
   const { id } = req.params;
   const currentUser = req.body;
-
+  if (req.files?.logo) {
+    const result = await UploadImage(req.files.logo.tempFilePath)
+    currentUser.logo = result.secure_url
+  }
+  if (req.files?.banner) {
+    const result = await UploadImage(req.files.banner.tempFilePath)
+    currentUser.banner = result.secure_url
+  }
   try {
     const user = await updateUser(id, currentUser);
 

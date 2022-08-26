@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  role:{
+  role: {
     type: String,
     enum: ['user', 'admin'],
     default: 'user',
@@ -34,6 +34,7 @@ const UserSchema = new mongoose.Schema({
   },
   subscribers: {
     type: Number,
+    default: 0
   },
   video: [{
     type: mongoose.Schema.Types.ObjectId,
