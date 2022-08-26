@@ -27,5 +27,5 @@ app.listen(PORT, async () => {
 
 app.use(fileUpload({
   useTempFiles: true,
-  tempFileDir: '/TempUpload'
+  tempFileDir: 'TempUpload/'
 }))
