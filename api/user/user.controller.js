@@ -4,6 +4,9 @@ const {
   updateUser,
 } = require('./user.service.js')
 
+const fs = require('fs-extra');
+const { UploadImage } = require('../../utils/cloudinary')
+
 const findUserByEmailHandler = async (req, res) => {
   const { email } = req.body;
 
@@ -39,6 +42,16 @@ const getSingleUserHandler = async (req, res) => {
 const updateUserHandler = async (req, res) => {
   const { id } = req.params;
   const currentUser = req.body;
+  if (req.files?.logo) {
+    const result = await UploadImage(req.files.logo.tempFilePath)
+    currentUser.logo = result.secure_url
+    await fs.unlink(req.files.logo.tempFilePath)
+  }
+  if (req.files?.banner) {
+    const result = await UploadImage(req.files.banner.tempFilePath)
+    currentUser.banner = result.secure_url
+    await fs.unlink(req.files.banner.tempFilePath)
+  }
 
   try {
     const user = await updateUser(id, currentUser);
@@ -51,6 +64,7 @@ const updateUserHandler = async (req, res) => {
     return res.status(500).json({ error: 'There was an error' });
   }
 }
+
 
 const deleteUserHandler = async (req, res) => { }
 
