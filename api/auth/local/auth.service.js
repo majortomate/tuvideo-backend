@@ -26,7 +26,7 @@ async function isAuthenticated(req, res, next) {
   const authHeader = req.headers?.authorization;
 
   if (!authHeader) {
-    return res.status(401).json({ message: 'Unauthorized' });
+    return res.status(401).json({ message: 'No token' });
   }
 
   const token = authHeader.split(' ')[1];
@@ -47,6 +47,7 @@ async function isAuthenticated(req, res, next) {
   }
 
   req.user = user;
+  res.json({success: "Authorized"})
 
   next();
   return true;
