@@ -10,8 +10,7 @@ const {
   findOneUser,
 } = require('../../user/user.service')
 
-const loginUserHandler = async (req, res) => {
-
+const loginUserHandler = async (req, res, next) => {
   const { email, password } = req.body
 
   const user = await findUserByEmail(email)
@@ -28,15 +27,16 @@ const loginUserHandler = async (req, res) => {
       return res.status(404).json({ message: 'Wrong password' })
     }
     const token = signToken({ email: user.email });
+    next();
 
     return res.status(200).json({ token, profile: user.profile });
   } catch (error) {
     return res.status(500).json({ error: "Something went wrong" })
   }
+
 }
 
 const registerUserHandler = async (req, res) => {
-  res.json({message: "holi from register"})
   let userData = req.body
   let { email, password } = req.body;
   const userFound = await findUserByEmail(email);
@@ -68,7 +68,7 @@ const registerUserHandler = async (req, res) => {
       template_id: 'd-48fe57f4ab214ddc922e6801c679a18a', // template id
       dynamic_template_data: {
         username: user.username,
-        url: `http://localhost:3001/api/users/verify-account/${emailHash}`,
+        url: `https://tuvideo-backend.herokuapp.com/api/auth/verify-account/${emailHash}`,
       },
     };
 
