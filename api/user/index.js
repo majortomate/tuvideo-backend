@@ -15,6 +15,6 @@ const router = Router();
 
 router.get('/', findUserByEmailHandler);
 router.get('/:id', getSingleUserHandler)
-router.patch('/:id', updateUserHandler)
+router.post('/:id', updateUserHandler)
 
 module.exports = router;
