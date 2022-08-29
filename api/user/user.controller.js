@@ -40,20 +40,26 @@ const getSingleUserHandler = async (req, res) => {
 }
 
 const updateUserHandler = async (req, res) => {
+  const logo = req.files['logo'][0];
+  const banner = req.files['banner'][0];
   const { id } = req.params;
   const currentUser = req.body;
-  if (req.files?.logo) {
-    const result = await UploadImage(req.files.logo.tempFilePath)
-    currentUser.logo = result.secure_url
-    await fs.unlink(req.files.logo.tempFilePath)
-  }
-  if (req.files?.banner) {
-    const result = await UploadImage(req.files.banner.tempFilePath)
-    currentUser.banner = result.secure_url
-    await fs.unlink(req.files.banner.tempFilePath)
-  }
+
+  console.log(req.files);
+  console.log(logo, " ", banner);
 
   try {
+    if (logo) {
+      const result = await UploadImage(logo.path)
+      currentUser.logo = result.secure_url
+      await fs.unlink(logo.path)
+    }
+    if (banner) {
+      const result = await UploadImage(banner.path)
+      currentUser.banner = result.secure_url
+      await fs.unlink(banner.path)
+    }
+
     const user = await updateUser(id, currentUser);
 
     if (!user) {

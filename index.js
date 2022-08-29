@@ -1,4 +1,3 @@
-const fileUpload = require('express-fileupload');
 const express = require('express');
 require('dotenv').config();
 
@@ -9,7 +8,7 @@ const connectDatabase = require('./config/database.js')
 const app = express();
 
 const PORT = process.env.PORT
-const NODE_ENV = process.env.NODE_ENV || 'production'
+const NODE_ENV = process.env.NODE_ENV || 'psroduction'
 
 
 app.listen(PORT, async () => {
@@ -25,7 +24,3 @@ app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT} in ${NODE_ENV} mode`)
 })
 
-app.use(fileUpload({
-  useTempFiles: true,
-  tempFileDir: 'TempUpload/'
-}))
