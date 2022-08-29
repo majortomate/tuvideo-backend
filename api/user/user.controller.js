@@ -40,9 +40,16 @@ const getSingleUserHandler = async (req, res) => {
 }
 
 const updateUserHandler = async (req, res) => {
-  const logo = req.files['logo'][0];
-  const banner = req.files['banner'][0];
   const { id } = req.params;
+  let logo = undefined;
+  let banner = undefined;
+  if (req.files['logo']) {
+    logo = req.files['logo'][0];
+  }
+  if (req.files['banner']) {
+    banner = req.files['banner'][0];
+  }
+
   const currentUser = req.body;
 
   console.log(req.files);
