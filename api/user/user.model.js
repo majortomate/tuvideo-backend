@@ -44,7 +44,9 @@ const UserSchema = new mongoose.Schema({
   passwordResetExpires: Date,
   subscribedChannels: [
     {
-      type: String
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      unique: true
     }
   ]
 
@@ -52,10 +54,11 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.virtual('profile').get(function profile() {
   const {
-    username, email, role,
+    _id, username, email, role,
   } = this;
 
   return {
+    _id,
     username,
     email,
     role,

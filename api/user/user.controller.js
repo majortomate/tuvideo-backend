@@ -78,6 +78,16 @@ const updateUserHandler = async (req, res) => {
   }
 }
 
+const toSubscribeHandler = async (req, res) => {
+  const { id } = req.params;
+  const { userToSubscribe } = req.body;
+
+  const userUpdated = await updateUser(id, {
+    $push: { subscribedChannels: userToSubscribe },
+  });
+
+  res.send(`El canal de ${userUpdated.username} se ha actualizado`);
+}
 
 const deleteUserHandler = async (req, res) => { }
 
@@ -86,4 +96,5 @@ module.exports = {
   getSingleUserHandler,
   updateUserHandler,
   deleteUserHandler,
+  toSubscribeHandler
 }
