@@ -45,20 +45,6 @@ const registerUserHandler = async (req, res) => {
   if (userFound) {
     return res.status(404).json({ message: "User already registered" })
   }
-  try {
-    const URL = cloudinary.url('SampleImage\logoBase', {
-      width: 300,
-      height: 300,
-    });
-
-    const firstLogo = cloudinary.image(URL, { overlay: { font_family: 'bd', font_size: 24, text: userData.username[0] } });
-    console.log(firstLogo);
-    const result = await UploadImage(firstLogo);
-
-    userData.logo = result.secure_url;
-  } catch (error) {
-    console.log(error);
-  }
 
   const emailHash = crypto.createHash('sha256')
     .update(userData.email)
