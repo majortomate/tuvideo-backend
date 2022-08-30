@@ -1,8 +1,9 @@
 const bcrypt = require('bcryptjs')
 const crypto = require('crypto')
+const cloudinary = require('cloudinary').v2;
 const { sendMailSendGrid } = require('../../../utils/mail')
 const { signToken } = require('./auth.service')
-
+const { UploadImage } = require('../../../utils/cloudinary');
 
 const {
   findUserByEmail,
@@ -58,7 +59,6 @@ const registerUserHandler = async (req, res) => {
 
   try {
     const user = await registerUser(userData)
-
     // Send email to user
     const message = {
       from: '"no-reply" <publicidad@stardustdigital.co>', // sender address
