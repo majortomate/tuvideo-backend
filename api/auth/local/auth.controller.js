@@ -27,7 +27,6 @@ const loginUserHandler = async (req, res, next) => {
       return res.status(404).json({ message: 'Wrong password' })
     }
     const token = signToken({ email: user.email });
-    next();
 
     return res.status(200).json({ token, profile: user.profile });
   } catch (error) {

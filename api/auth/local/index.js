@@ -14,7 +14,7 @@ const { isAuthenticated } = require('./auth.service');
  
  router.post('/register', registerUserHandler)
  router.patch('/forgot', resetUserPasswordHandler)
- router.post('/login', isAuthenticated, loginUserHandler )
+ router.post('/login', loginUserHandler)
  router.get('/verify-account/:token', verifyUserHandler)
  
  module.exports = router;
