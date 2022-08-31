@@ -1,55 +1,61 @@
 const express = require('express');
 const { Router } = express;
 
-const  {
-    getAllVideo,
-    createVideo,
-    getSingleVideo,
-    updateVideo,
-    deleteVideo,
-  } = require('./video.service.js')
+const {
+  getAllVideo,
+  createVideo,
+  getSingleVideo,
+  updateVideo,
+  deleteVideo,
+} = require('./video.service.js')
 
-  
-  const getAllVideoHandler = async (req, res) => {
+const {
+  updateUser
+} = require('../user/user.service.js')
 
-    try {
-        const Videos = await getAllVideo()
-        return res.status(200).json(Videos)
-    } catch (error) {
-        return res.status(500).json({ error })
-    }
-    }
-  
-  const getSingleVideoHandler =  async (req, res) => {
-    const { id } = req.params
-    try {
-      const Video = await getSingleVideo(id)
-  
-      if (!Video) {
-        return res.status(404).json({ message: 'Video not found' })
-      }
-      return res.json(Video)  
-      
-    } catch (error) {
-      return res.status(500).json({ error: "There was an error"})
-    }
+const getAllVideoHandler = async (req, res) => {
+
+  try {
+    const Videos = await getAllVideo()
+    return res.status(200).json(Videos)
+  } catch (error) {
+    return res.status(500).json({ error })
   }
-  
-  const createVideoHandler = async (req, res) => {
-    const VideoData = req.body
+}
 
-      const response = await createVideo(VideoData)
+const getSingleVideoHandler = async (req, res) => {
+  const { id } = req.params
+  try {
+    const Video = await getSingleVideo(id)
 
-      if(response){
-        res.status(200).json("success")
-      } else{
-        res.status(500).json("error")
-      }
+    if (!Video) {
+      return res.status(404).json({ message: 'Video not found' })
+    }
+    return res.json(Video)
+
+  } catch (error) {
+    return res.status(500).json({ error: "There was an error" })
   }
-  
-  const updateVideoHandler = async (req, res) => {
-    const { id } = req.params
-    const videoData = req.body
+}
+
+const createVideoHandler = async (req, res) => {
+  const VideoData = req.body
+  const { user } = req.body
+  const response = await createVideo(VideoData)
+  const addToUser = await updateUser(user, {
+    $push: { video: response._id }
+  })
+
+  if (response) {
+    res.status(200).json(`El canal de ${addToUser.username} a subido un nuevo video`)
+  } else {
+    res.status(500).json("error")
+  }
+}
+
+const updateVideoHandler = async (req, res) => {
+  const { id } = req.params
+  const videoData = req.body
 
 
   try {
@@ -59,32 +65,38 @@ const  {
   } catch (error) {
     return res.status(500).json({ error })
   }
-  }
-  
-  const deleteVideoHandler = async (req, res) => {}
+}
 
-  const searchVideosHandler = async (req, res) =>{
-    res.send("hey")
-    const { q } = await req.query
+const deleteVideoHandler = async (req, res) => {
+  const { id } = req.params;
+  const user = await updateUser()
+  const response = await deleteVideo(id);
 
-    const keys = ["title"]
+  return res.status(200).json({ message: response })
+}
 
-    const search = (data) => {
-      return data.filter( (item) =>
-        keys.some((key) => item[key].toLowerCase().includes(q))
-      )
-    }
-     res.json(search(Videos))
-  
+const searchVideosHandler = async (req, res) => {
+  res.send("hey")
+  const { q } = await req.query
+
+  const keys = ["title"]
+
+  const search = (data) => {
+    return data.filter((item) =>
+      keys.some((key) => item[key].toLowerCase().includes(q))
+    )
   }
-  
-  module.exports = {
-    getAllVideoHandler,
-    getSingleVideoHandler,
-    createVideoHandler,
-    updateVideoHandler,
-    deleteVideoHandler,
-    searchVideosHandler,
-  }
-  
+  res.json(search(Videos))
+
+}
+
+module.exports = {
+  getAllVideoHandler,
+  getSingleVideoHandler,
+  createVideoHandler,
+  updateVideoHandler,
+  deleteVideoHandler,
+  searchVideosHandler,
+}
+
 
