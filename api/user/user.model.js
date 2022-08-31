@@ -55,6 +55,20 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Video'
   }],
+  /*   playlist: [
+      {
+        name: {
+          type: string,
+          required: true
+        },
+        videos: [
+          {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Video'
+          }
+        ]
+      }
+    ], */
   passwordResetToken: String,
   passwordResetExpires: Date,
   subscribedChannels: [

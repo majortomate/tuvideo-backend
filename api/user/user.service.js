@@ -1,6 +1,6 @@
 const User = require('./user.model.js')
 
-const getSingleUser = id => User.findById(id)
+const getSingleUser = id => User.findById(id).populate('subscribedChannels')
 
 const findUserByEmail = (email) => User.findOne({ email })
 
