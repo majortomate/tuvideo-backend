@@ -8,7 +8,7 @@ const  {
 const searchVideosHandler = async (req, res) =>{
   const { q } = req.query
 
-  const Videos = await getAllVideo()
+  const Videos = await getAllVideo().limit(30)
 
   const search = (data) => {
     return data.filter( (item) => item['title']?.toLowerCase().includes(q))
