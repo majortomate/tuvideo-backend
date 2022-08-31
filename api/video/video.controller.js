@@ -67,7 +67,13 @@ const updateVideoHandler = async (req, res) => {
   }
 }
 
-const deleteVideoHandler = async (req, res) => { }
+const deleteVideoHandler = async (req, res) => {
+  const { id } = req.params;
+  const user = await updateUser()
+  const response = await deleteVideo(id);
+
+  return res.status(200).json({ message: response })
+}
 
 const searchVideosHandler = async (req, res) => {
   res.send("hey")
