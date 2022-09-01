@@ -1,14 +1,14 @@
 const Video = require('./video.model.js');
 
 
-const getAllVideo = () => Video.find({}).sort([['createdAt', -1]]);
+const getAllVideo = () => Video.find({});
 
-const getSingleVideo = id => Video.findById(id).populate('user');
+const getSingleVideo = id => Video.findById(id).populate("comments");
 
 const createVideo = video => Video.create(video);
 
-const updateVideo = (id, dataToUpdate) => Video.findOneAndUpdate(id, dataToUpdate, { new: true });
-
+const updateVideo = (id, dataToUpdate) => Video.findByIdAndUpdate(id, dataToUpdate, { new: true });
+// const updateVideo = (id, dataToUpdate) => Video.findOneAndUpdate(id, dataToUpdate, { new: true });
 const deleteVideo = id => Video.findByIdAndRemove(id);
 
 module.exports = {

@@ -34,11 +34,11 @@ const VideoSchema = new mongoose.Schema({
   },
   comments: [
     {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Comment',
+      unique: true
     }
-
-  ],
-
+  ]
 }, { timestamps: true });
 
 const Video = mongoose.model('Video', VideoSchema)
