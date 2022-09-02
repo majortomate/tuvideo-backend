@@ -40,7 +40,6 @@ const VideoSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Comment',
-      unique: true
     }
   ]
 }, { timestamps: true });

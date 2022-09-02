@@ -1,9 +1,9 @@
 const Video = require('./video.model.js');
 
 
-const getAllVideo = () => Video.find({}).sort([['createdAt', -1]]);;
+const getAllVideo = () => Video.find({}).sort([['createdAt', -1]]).populate("user");;
 
-const getSingleVideo = id => Video.findById(id).populate("comments");
+const getSingleVideo = id => Video.findById(id).populate(["user", "comments"]);
 
 const createVideo = video => Video.create(video);
 
