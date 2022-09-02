@@ -1,5 +1,5 @@
 /* checkout index routes */
-const Stripe = require('stripe')
+const Stripe = require('stripe');
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
@@ -19,7 +19,7 @@ async function handlerCheckout(req, res) {
 
     return res.json({ message: 'success', payment });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message,});
   }
 
 }
