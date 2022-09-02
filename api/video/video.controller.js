@@ -92,10 +92,14 @@ const searchVideosHandler = async (req, res) => {
 
 
 const likeVideoHandler = async (req, res, next) => {
-  const id = req.user.id;
-  const {videoId} = req.params
+  const { videoId } = req.params
+  const video = await getSingleVideo(videoId)
+  const id = video.user._id
+
+
+
   try {
-    await Video.findByIdAndUpdate(videoId,{
+    await updateVideo(videoId, {
       $addToSet:{likes:id},
       $pull:{dislikes:id}
     })
@@ -106,17 +110,34 @@ const likeVideoHandler = async (req, res, next) => {
 };
 
 const dislikeVideoHandler = async (req, res, next) => {
-    const id = req.user.id;
-    const videoId = req.params.videoId;
-    try {
-      await Video.findByIdAndUpdate(videoId,{
-        $addToSet:{dislikes:id},
-        $pull:{likes:id}
-      })
-      res.status(200).json("The video has been disliked.")
+  const { videoId } = req.params
+  const video = await getSingleVideo(videoId)
+  const id = video.user._id
+
+  try {
+    await updateVideo(videoId, {
+      $addToSet:{dislikes:id},
+      $pull:{likes:id}
+    })
+    res.status(200).json("The video has been disliked.")
   } catch (err) {
     next(err);
   }
+};
+
+const addViewHandler = async (req, res, next) => {
+
+  const { videoId } = req.params
+  try {
+    await updateVideo(videoId, {
+      $inc: { views: 1 },
+    });
+    res.status(200).json("The view has been increased.");
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getAllVideoHandler,
   getSingleVideoHandler,
@@ -126,6 +147,5 @@ module.exports = {
   searchVideosHandler,
   likeVideoHandler,
   dislikeVideoHandler,
+  addViewHandler,
 }
-
-};

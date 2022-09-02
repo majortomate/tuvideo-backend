@@ -13,7 +13,8 @@
     updateVideoHandler,
     searchVideosHandler,
     likeVideoHandler,
-    dislikeVideoHandler
+    dislikeVideoHandler,
+    addViewHandler
   } = require('./video.controller.js')
   
   const router = Router();
@@ -25,6 +26,7 @@
   router.delete('/:id', deleteVideoHandler)
   router.get('/search', searchVideosHandler)
   router.patch('/like/:videoId', likeVideoHandler)
-  router.patch('/dislike/:videoId', likeVideoHandler)
+  router.patch('/dislike/:videoId', dislikeVideoHandler)
+  router.patch("/view/:videoId", addViewHandler)
   
  module.exports = router;
