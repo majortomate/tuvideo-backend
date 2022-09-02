@@ -90,6 +90,54 @@ const searchVideosHandler = async (req, res) => {
 
 }
 
+
+const likeVideoHandler = async (req, res, next) => {
+  const { videoId } = req.params
+  const video = await getSingleVideo(videoId)
+  const id = video.user._id
+
+
+
+  try {
+    await updateVideo(videoId, {
+      $addToSet:{likes:id},
+      $pull:{dislikes:id}
+    })
+    res.status(200).json("The video has been liked.")
+  } catch (err) {
+    next(err);
+  }
+};
+
+const dislikeVideoHandler = async (req, res, next) => {
+  const { videoId } = req.params
+  const video = await getSingleVideo(videoId)
+  const id = video.user._id
+
+  try {
+    await updateVideo(videoId, {
+      $addToSet:{dislikes:id},
+      $pull:{likes:id}
+    })
+    res.status(200).json("The video has been disliked.")
+  } catch (err) {
+    next(err);
+  }
+};
+
+const addViewHandler = async (req, res, next) => {
+
+  const { videoId } = req.params
+  try {
+    await updateVideo(videoId, {
+      $inc: { views: 1 },
+    });
+    res.status(200).json("The view has been increased.");
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getAllVideoHandler,
   getSingleVideoHandler,
@@ -97,6 +145,7 @@ module.exports = {
   updateVideoHandler,
   deleteVideoHandler,
   searchVideosHandler,
+  likeVideoHandler,
+  dislikeVideoHandler,
+  addViewHandler,
 }
-
-
