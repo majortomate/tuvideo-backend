@@ -83,7 +83,7 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.virtual('profile').get(function profile() {
   const {
-    _id, username, email, role,
+    _id, username, email, role, logo
   } = this;
 
   return {
@@ -91,6 +91,7 @@ UserSchema.virtual('profile').get(function profile() {
     username,
     email,
     role,
+    logo
   };
 });
 
