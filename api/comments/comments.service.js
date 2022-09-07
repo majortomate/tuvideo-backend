@@ -1,5 +1,6 @@
 const Comment = require ('./comments.model.js');
 
+const getAllComment = () => Comment.find({}).sort([['createdAt', -1]]);
 
 const createComment = comment => Comment.create(comment);
 
@@ -14,4 +15,5 @@ module.exports ={
   updateComment,
   deleteComment,
   getSingleComment,
+  getAllComment
 }
