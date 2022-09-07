@@ -77,8 +77,8 @@ const UserSchema = new mongoose.Schema({
       ref: 'User',
       unique: true
     }
-  ]
-
+  ],
+  payment: Payment,
 }, { timestamps: true });
 
 UserSchema.virtual('profile').get(function profile() {
