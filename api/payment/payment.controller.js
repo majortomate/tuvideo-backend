@@ -4,18 +4,19 @@ const {
   createCustomer,
   retrieveCustomer,
 } = require('./payment.service');
-const { updateUser } = require('../user/user.service');
+const { updateUser, getSingleUser } = require('../user/user.service');
 
 async function handlerPayment(req, res) {
-  const { user } = req;
-  const { paymentMethod, amount } = req.body;
+  const { paymentMethod, amount, userId } = req.body;
+
+  const foundUser = await getSingleUser(userId)
 
   try {
     const { id, card } = paymentMethod;
 
     let customer = null;
-    if (!user?.payment?.customerId) {
-      customer = await createCustomer(user, paymentMethod);
+    if (!foundUser?.payment?.customerId) {
+      customer = await createCustomer(foundUser, paymentMethod);
 
       const userToUpdate = {
         payment: {
@@ -33,13 +34,13 @@ async function handlerPayment(req, res) {
       };
 
       // eslint-disable-next-line no-underscore-dangle
-      await updateUser(user._id, userToUpdate);
+      await updateUser(foundUser._id, userToUpdate);
     }
 
-    customer = await retrieveCustomer(user.payment.customerId);
+    customer = await retrieveCustomer(foundUser.payment.customerId);
 
     const paymentCard = {
-      id: user.payment.cards[0].paymentMethodId,
+      id: foundUser.payment.cards[0].paymentMethodId,
     };
     const payment = await makePayment({ paymentMethod: paymentCard, amount, customer });
 
@@ -49,15 +50,14 @@ async function handlerPayment(req, res) {
       description: payment.description,
       value: payment.amount,
       currency: payment.currency,
-      userId: user._id,
+      userId: foundUser._id,
     };
 
     await createPayment(registerPayment);
 
     return res.json(payment);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json(error);
+    return res.status(500).json("que ha pasado tio", error);
   }
 }
 

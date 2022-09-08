@@ -13,7 +13,7 @@ async function handlerCheckout(req, res) {
       amount,
       currency: 'usd',
       confirm: true,
-      description: 'Example charge - Top v23'
+      description: 'Donation - Tu Video'
     })
 
     return res.json({ message: 'success', payment });

@@ -14,13 +14,13 @@ async function createCustomer(user, paymentMethod) {
   try {
     const customer = await stripe.customers.create({
       email: user.email,
-      name: `${user.firstName} ${user.lastName}`,
+      name: user.username,
       payment_method: paymentMethod.id,
     });
 
     return customer;
   } catch (error) {
-    console.log('error', error);
+    console.log('Couldnt create customer', error);
     throw error;
   }
 }
@@ -31,7 +31,7 @@ async function retrieveCustomer(customerId) {
 
     return customer;
   } catch (error) {
-    console.log('error', error);
+    console.log('Couldnt retrieve customer', error);
     throw error;
   }
 }
@@ -52,7 +52,7 @@ async function makePayment({ paymentMethod, amount, customer }) {
 
     return payment;
   } catch (error) {
-    console.log('error', error);
+    console.log('Couldnt make payment', error);
     throw error;
   }
 }
