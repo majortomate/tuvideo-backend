@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+/* 
 const Payment = new mongoose.Schema({
   customerId: String,
   cards: [
@@ -13,7 +13,7 @@ const Payment = new mongoose.Schema({
       last4: String,
     },
   ],
-});
+}); */
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -55,30 +55,28 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Video'
   }],
-  /*   playlist: [
-      {
-        name: {
-          type: string,
-          required: true
-        },
-        videos: [
-          {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Video'
-          }
-        ]
-      }
-    ], */
   passwordResetToken: String,
   passwordResetExpires: Date,
   subscribedChannels: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      // unique: true
     }
   ],
-  payment: Payment,
+  payment: {
+    customerId: String,
+    cards: [
+      {
+        paymentMethodId: String,
+        brand: String,
+        country: String,
+        expMonth: Number,
+        expYear: Number,
+        funding: String,
+        last4: String,
+      },
+    ],
+  },
 }, { timestamps: true });
 
 UserSchema.virtual('profile').get(function profile() {
