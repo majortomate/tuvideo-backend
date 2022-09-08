@@ -6,7 +6,7 @@ const video = require('./api/video/index.js')
 const admin = require('./api/admin/index.js')
 const upload = require('./api/upload/index.js')
 const search = require('./api/search/index.js')
-const checkout = require('./api/checkout/index.js')
+// const checkout = require('./api/checkout/index.js')
 const payment = require('./api/payment')
 const comments = require('./api/comments/index.js')
 
@@ -17,7 +17,7 @@ const routes = function (app) {
   app.use('/api/admin', admin)
   app.use('/api/upload', upload)
   app.use('/api/search', search)
-  app.use('/api/checkout', checkout)
+  // app.use('/api/checkout', checkout)
   app.use('/api/payments', payment);
   app.use('/api/comments', comments)
 }
