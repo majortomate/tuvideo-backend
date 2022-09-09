@@ -1,19 +1,4 @@
 const mongoose = require('mongoose')
-/* 
-const Payment = new mongoose.Schema({
-  customerId: String,
-  cards: [
-    {
-      paymentMethodId: String,
-      brand: String,
-      country: String,
-      expMonth: Number,
-      expYear: Number,
-      funding: String,
-      last4: String,
-    },
-  ],
-}); */
 
 const UserSchema = new mongoose.Schema({
   username: {

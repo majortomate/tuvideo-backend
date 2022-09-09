@@ -20,7 +20,7 @@ async function createCustomer(user, paymentMethod) {
 
     return customer;
   } catch (error) {
-    console.log('Couldnt create customer', error);
+    console.log('error on createCustomer', error);
     throw error;
   }
 }
@@ -47,7 +47,6 @@ async function makePayment({ paymentMethod, amount, customer }) {
       confirm: true,
       description: 'Email',
       customer: customer.id,
-      receipt_email: true,
     });
 
     return payment;
