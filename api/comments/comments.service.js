@@ -1,6 +1,6 @@
-const Comment = require ('./comments.model.js');
+const Comment = require('./comments.model.js');
 
-const getAllComment = () => Comment.find({}).sort([['createdAt', -1]]);
+const getAllComment = () => Comment.find({}).sort([['createdAt', -1]]).populate('user');
 
 const createComment = comment => Comment.create(comment);
 
@@ -8,9 +8,9 @@ const updateComment = (id, comment) => Comment.findByIdAndUpdate(id, comment, { 
 
 const deleteComment = id => Comment.findByIdAndRemove(id);
 
-const getSingleComment = id => Comment.findById(id);
+const getSingleComment = id => Comment.findById(id).populate('user');
 
-module.exports ={
+module.exports = {
   createComment,
   updateComment,
   deleteComment,

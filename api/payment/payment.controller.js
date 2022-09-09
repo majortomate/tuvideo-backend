@@ -10,7 +10,7 @@ async function handlerPayment(req, res) {
   const { paymentMethod, amount, userId } = req.body;
 
   const foundUser = await getSingleUser(userId)
-
+  console.log(foundUser, userId)
   try {
     const { id, card } = paymentMethod;
 
