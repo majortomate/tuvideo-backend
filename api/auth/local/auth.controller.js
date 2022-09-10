@@ -67,7 +67,7 @@ const registerUserHandler = async (req, res) => {
       template_id: 'd-48fe57f4ab214ddc922e6801c679a18a', // template id
       dynamic_template_data: {
         username: user.username,
-        url: `http://localhost:8081/verify/${emailHash}`,
+        url: `https://tuvideo-frontend-ten.vercel.app/verify/${emailHash}`,
       },
     };
 
